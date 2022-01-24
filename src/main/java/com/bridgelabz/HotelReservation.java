@@ -13,6 +13,7 @@ public class HotelReservation implements HotelReservationSystem {
 	public void addHotel() {
 		System.out.println("How the number of hotels that you want to add:");
 		int numOfHotels = scanner.nextInt();
+		
 		while (numOfHotels > 0) {
 			for (int counter=1; counter<=numOfHotels; counter++) {
 		System.out.println("Enter the details accordingly to add the Hotel-"+counter+" to the list");
@@ -29,13 +30,13 @@ public class HotelReservation implements HotelReservationSystem {
 //		System.out.println("Enter the rewarded customer price(during Weekdays) for the hotel:");
 //		int priceInWeekDaysForRewards = scanner.nextInt();
 //		
-//		System.out.println("Enter the regular customer price(during Weekends) for the hotel:");
-//		int priceInWeekEndsForCommons = scanner.nextInt();
+		System.out.println("Enter the regular customer price(during Weekends) for the hotel:");
+		int priceInWeekEndsForCommons = scanner.nextInt();
 //		
 //		System.out.println("Enter the rewarded customer price(during Weekends) for the hotel:");
 //		int priceInWeekEndsForRewards = scanner.nextInt();
 
-		hotel = new Hotel(hotelName,hotelRating,priceInWeekDaysForCommons);
+		hotel = new Hotel(hotelName,hotelRating,priceInWeekDaysForCommons,priceInWeekEndsForCommons);
 		hotelList.add(hotel);
 			}
 			break;
@@ -50,12 +51,7 @@ public class HotelReservation implements HotelReservationSystem {
 	public ArrayList<Hotel> getHotelList(){
 		return hotelList;
 	}
-
-	public Hotel getCheapestHotel(LocalDate startDate, LocalDate endDate) {
-		Optional<Hotel> resultList = hotelList.stream().min(Comparator.comparing(Hotel::getPriceInWeekDaysForCommons));
-		return resultList.get();
-	}
 	@Override
-	public void addHotel(String hotelName, int rating, double regularCustomerRate) {
+	public void addHotel(String hotelName, int hotelRating, int priceInWeekDaysForCommons, int  priceInWeekEndsForCommons) {
 	}
 }

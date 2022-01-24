@@ -5,7 +5,7 @@ public class Hotel {
 	String hotelName;
 	int hotelRating, priceInWeekDaysForCommons, priceInWeekDaysForRewards, priceInWeekEndsForCommons, priceInWeekEndsForRewards;
 	
-	Hotel (String hotelName, int hotelRating, int priceInWeekDaysForCommons) {
+	Hotel (String hotelName, int hotelRating, int priceInWeekDaysForCommons, int  priceInWeekEndsForCommons) {
 		this.hotelName = hotelName;
 		this.hotelRating = hotelRating;
 		this.priceInWeekDaysForCommons = priceInWeekDaysForCommons;

@@ -1,6 +1,9 @@
 package com.bridgelabz;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class HotelReservation implements HotelReservationSystem {
@@ -23,18 +26,19 @@ public class HotelReservation implements HotelReservationSystem {
 		System.out.println("Enter the regular customer price(during Weekdays) for the hotel:");
 		int priceInWeekDaysForCommons = scanner.nextInt();
 		
-		System.out.println("Enter the rewarded customer price(during Weekdays) for the hotel:");
-		int priceInWeekDaysForRewards = scanner.nextInt();
-		
-		System.out.println("Enter the regular customer price(during Weekends) for the hotel:");
-		int priceInWeekEndsForCommons = scanner.nextInt();
-		
-		System.out.println("Enter the rewarded customer price(during Weekends) for the hotel:");
-		int priceInWeekEndsForRewards = scanner.nextInt();
-		
+//		System.out.println("Enter the rewarded customer price(during Weekdays) for the hotel:");
+//		int priceInWeekDaysForRewards = scanner.nextInt();
+//		
+//		System.out.println("Enter the regular customer price(during Weekends) for the hotel:");
+//		int priceInWeekEndsForCommons = scanner.nextInt();
+//		
+//		System.out.println("Enter the rewarded customer price(during Weekends) for the hotel:");
+//		int priceInWeekEndsForRewards = scanner.nextInt();
+
 		hotel = new Hotel(hotelName,hotelRating,priceInWeekDaysForCommons);
 		hotelList.add(hotel);
 			}
+			break;
 		}
 	}
 	public void printHotelList() {
@@ -42,5 +46,16 @@ public class HotelReservation implements HotelReservationSystem {
 	}
 	public int getHotelListSize() {
 		return hotelList.size();
+	}
+	public ArrayList<Hotel> getHotelList(){
+		return hotelList;
+	}
+
+	public Hotel getCheapestHotel(LocalDate startDate, LocalDate endDate) {
+		Optional<Hotel> resultList = hotelList.stream().min(Comparator.comparing(Hotel::getPriceInWeekDaysForCommons));
+		return resultList.get();
+	}
+	@Override
+	public void addHotel(String hotelName, int rating, double regularCustomerRate) {
 	}
 }

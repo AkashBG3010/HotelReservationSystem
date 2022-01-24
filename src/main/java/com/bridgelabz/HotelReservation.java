@@ -1,6 +1,9 @@
 package com.bridgelabz;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
@@ -53,5 +56,38 @@ public class HotelReservation implements HotelReservationSystem {
 	}
 	@Override
 	public void addHotel(String hotelName, int hotelRating, int priceInWeekDaysForCommons, int  priceInWeekEndsForCommons) {
+	}
+	public String getCheapestHotel(LocalDate startDate, LocalDate endDate) {
+
+		int numberOfDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
+        int weekends = 0;
+
+		while (startDate.compareTo(endDate) != 0) {
+            switch (DayOfWeek.of(startDate.get(ChronoField.DAY_OF_WEEK))) {
+                case SATURDAY:
+                    ++weekends;
+                    break;
+                case SUNDAY:
+                    ++weekends;
+                    break;
+            }
+            startDate = startDate.plusDays(1);
+        }
+
+		final int weekdaysNumber = numberOfDays - weekends;
+		final int weekendsNumber = weekends;
+
+		int cheapestRate = (int) (hotelList.get(0).getPriceInWeekDaysForCommons() + hotelList.get(0).getPriceInWeekEndsForCommons());
+		String cheapestHotel=hotelList.get(0).getHotelName();
+		for (Hotel hotel : hotelList) {
+		            int rateForHotel = (int) ((weekdaysNumber * hotel.getPriceInWeekDaysForCommons())
+		                    + (weekendsNumber * hotel.getPriceInWeekEndsForCommons()));
+		            if (rateForHotel < cheapestRate) {
+		                cheapestRate = rateForHotel;
+		                cheapestHotel = hotel.getHotelName();
+		            }
+		 }
+        	System.out.println("Cheapest Hotel : \n" + cheapestHotel + ", Total Rates: " + cheapestRate);
+        	return cheapestHotel;
 	}
 }

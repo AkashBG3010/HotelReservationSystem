@@ -1,5 +1,8 @@
 package com.bridgelabz;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -45,5 +48,16 @@ public class HotelReservationSystemTest {
 		hotelReservation.addHotel("Ridgewood", 5, 220, 150);
 		int hotelListSize = hotelReservation.getHotelListSize();
 		Assert.assertEquals(3, hotelListSize);
+	}
+	
+	@Test
+	public void givenHotelDetails_shouldReturnCheapestHotel(){
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood", 3, 110, 90);
+		hotelReservation.addHotel("Bridgewood", 4, 160, 50);
+		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 10);    
+		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 12);    
+		String hotelName = hotelReservation.getCheapestHotel(startDate, endDate);
+		Assert.assertEquals("Lakewood", hotelName);
 	}
 }

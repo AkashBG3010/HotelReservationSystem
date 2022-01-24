@@ -9,4 +9,5 @@ public interface HotelReservationSystem {
 	public int getHotelListSize();
 	public ArrayList<Hotel> getHotelList();
 	public String getCheapestHotel(LocalDate startDate, LocalDate endDate);
+	public String getBestRatedHotel(LocalDate startDate, LocalDate endDate);
 }

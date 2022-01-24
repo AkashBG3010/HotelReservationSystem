@@ -79,15 +79,59 @@ public class HotelReservation implements HotelReservationSystem {
 
 		int cheapestRate = (int) (hotelList.get(0).getPriceInWeekDaysForCommons() + hotelList.get(0).getPriceInWeekEndsForCommons());
 		String cheapestHotel=hotelList.get(0).getHotelName();
+		int maxRating = hotelList.get(0).getHotelRating();
 		for (Hotel hotel : hotelList) {
 		            int rateForHotel = (int) ((weekdaysNumber * hotel.getPriceInWeekDaysForCommons())
 		                    + (weekendsNumber * hotel.getPriceInWeekEndsForCommons()));
-		            if (rateForHotel < cheapestRate) {
+		            int ratingForHotel=hotel.getHotelRating();
+		            if (rateForHotel < cheapestRate){
 		                cheapestRate = rateForHotel;
 		                cheapestHotel = hotel.getHotelName();
+		                maxRating=ratingForHotel;
+		            } else if (rateForHotel == cheapestRate) {
+		                if(hotel.getHotelRating()>maxRating) {
+		                    cheapestHotel = hotel.getHotelName();
+		                    maxRating=ratingForHotel;
+		                }
 		            }
 		 }
-        	System.out.println("Cheapest Hotel : \n" + cheapestHotel + ", Total Rates: " + cheapestRate);
-        	return cheapestHotel;
+		System.out.println("Cheapest Hotel : " + cheapestHotel + ", having rating: "+maxRating+" , Total Rates: " + cheapestRate);
+        return cheapestHotel;
 	}
+	public String getBestRatedHotel(LocalDate startDate, LocalDate endDate) {
+		int rate=0;
+		String ratedHotel = null;
+		int numberOfDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
+        int weekends = 0;
+
+		while (startDate.compareTo(endDate) != 0) {
+            switch (DayOfWeek.of(startDate.get(ChronoField.DAY_OF_WEEK))) {
+                case SATURDAY:
+                    ++weekends;
+                    break;
+                case SUNDAY:
+                    ++weekends;
+                    break;
+            }
+            startDate = startDate.plusDays(1);
+        }
+
+		final int weekdaysNumber = numberOfDays - weekends;
+		final int weekendsNumber = weekends;
+
+		int maxRating = hotelList.get(0).getHotelRating();
+		for (Hotel hotel : hotelList) {
+				int rateForHotel = (int) ((weekdaysNumber * hotel.getPriceInWeekDaysForCommons())
+                    + (weekendsNumber * hotel.getPriceInWeekEndsForCommons()));
+	            int ratingForHotel=hotel.getHotelRating();
+	            if (ratingForHotel > maxRating){
+	                rate = rateForHotel;
+	                ratedHotel = hotel.getHotelName();
+	                maxRating=ratingForHotel;
+	            }
+		}
+		System.out.println("Best Rated Hotel : " + ratedHotel + ", having rating: "+maxRating+" , Total Rates: " + rate);
+		return ratedHotel;
+	}
+
 }

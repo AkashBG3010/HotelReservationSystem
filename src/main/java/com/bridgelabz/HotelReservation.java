@@ -30,16 +30,16 @@ public class HotelReservation implements HotelReservationSystem {
 		System.out.println("Enter the regular customer price(during Weekdays) for the hotel:");
 		int priceInWeekDaysForCommons = scanner.nextInt();
 		
-//		System.out.println("Enter the rewarded customer price(during Weekdays) for the hotel:");
-//		int priceInWeekDaysForRewards = scanner.nextInt();
-//		
+		System.out.println("Enter the rewarded customer price(during Weekdays) for the hotel:");
+		int priceInWeekDaysForRewards = scanner.nextInt();
+		
 		System.out.println("Enter the regular customer price(during Weekends) for the hotel:");
 		int priceInWeekEndsForCommons = scanner.nextInt();
-//		
-//		System.out.println("Enter the rewarded customer price(during Weekends) for the hotel:");
-//		int priceInWeekEndsForRewards = scanner.nextInt();
+		
+		System.out.println("Enter the rewarded customer price(during Weekends) for the hotel:");
+		int priceInWeekEndsForRewards = scanner.nextInt();
 
-		hotel = new Hotel(hotelName,hotelRating,priceInWeekDaysForCommons,priceInWeekEndsForCommons);
+		hotel = new Hotel(hotelName,hotelRating,priceInWeekDaysForCommons,priceInWeekEndsForCommons,priceInWeekDaysForRewards,priceInWeekEndsForRewards);
 		hotelList.add(hotel);
 			}
 			break;
@@ -55,7 +55,7 @@ public class HotelReservation implements HotelReservationSystem {
 		return hotelList;
 	}
 	@Override
-	public void addHotel(String hotelName, int hotelRating, int priceInWeekDaysForCommons, int  priceInWeekEndsForCommons) {
+	public void addHotel(String hotelName, int hotelRating, int priceInWeekDaysForCommons, int  priceInWeekEndsForCommons, int priceInWeekDaysForRewards, int priceInWeekEndsForRewards) {
 	}
 	public String getCheapestHotel(LocalDate startDate, LocalDate endDate) {
 
@@ -133,5 +133,4 @@ public class HotelReservation implements HotelReservationSystem {
 		System.out.println("Best Rated Hotel : " + ratedHotel + ", having rating: "+maxRating+" , Total Rates: " + rate);
 		return ratedHotel;
 	}
-
 }
